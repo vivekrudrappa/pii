@@ -187,7 +187,12 @@ def remap_to_pii(insurance_response):
 def render_workflow_diagram():
     diagram = graphviz.Digraph()
     diagram.attr(rankdir="LR", bgcolor="#f9f9f9")
-    diagram.attr("node", shape="box", style="filled", color="#4A90E2", fontcolor="white", fontname="Arial", fontsize="12")
+    diagram.attr("node", shape="box", style="filled", color="#4A90E2", fontcolor="white", fontname="Arial", fontsize="16")
+    # Increase overall size for the graph canvas
+    # 'ratio' can also be used to control aspect ratio, e.g., diagram.attr(ratio="fill")
+    # You might need to experiment with 'size' values (e.g., "10,7", "12,8")
+    diagram.attr(size="10,7", dpi="200") # Added size and dpi for larger output
+    diagram.attr("edge", fontname="Arial", fontsize="12") # Added fontsize for edge labels
 
     diagram.node("A", "🏥 Raw Hospital Data\n(Name, DOB, Address, Notes)")
     diagram.node("B", "🔒 Regex-Based (later model based as needed)\nPII Redaction including Notes")
@@ -225,6 +230,7 @@ st.subheader("Named-Entity Recognition (NER) via Regex Based similar to NLP mode
 # Display a logo from a local file
 st.logo("Astra_logo.png", size="large")
 
+st.write("This diagram illustrates the flow of patient PII data through redaction, coding, and billing processes.")
 st.graphviz_chart(render_workflow_diagram())
 
 # ---------------------------------------------
