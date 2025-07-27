@@ -11,7 +11,7 @@ Solution Overview:
 This Python-based prototype demonstrates a workflow for secure PII masking and remapping using a rule-based regex approach, with a Streamlit UI for interactive demonstration. The solution includes:
 - Regex-based detection and redaction of PII from both structured fields and free-text notes.
 - Assignment of a unique identifier (UUID) to each patient record for tracking and remapping.
-- Simulated insurance response generation.
+- Simulated coding company and insurance billing response generation.
 - Accurate restoration of original PII using stored mappings.
 - Visual workflow diagram and step-by-step UI for user interaction.
 Top 3 Approaches to Solve the Challenge:
@@ -38,7 +38,7 @@ High-Level Steps to Achieve the Solution:
 1. **Data Ingestion:** Receive patient data from hospital in JSON format.
 2. **PII Detection & Masking:** Use a Gen AI/NLP model to identify and mask PII in all fields and notes. Replace PII with placeholders and assign a unique UUID to each record.
 3. **Send Masked Data:** Transmit masked data to insurance companies for billing code and approval processing.
-4. **Receive Insurance Response:** Collect insurance responses (billing codes, limits, co-payments) linked by UUID.
+4. **Receive coded with Insurance Response:** Collect insurance responses (billing codes, limits, co-payments) linked by UUID.
 5. **PII Remapping:** Restore original PII using stored mappings and UUIDs, reconstructing the full patient record.
 6. **Return to Hospital:** Send the final, remapped data back to the hospital.
 This prototype demonstrates the workflow using regex-based masking, but can be enhanced with Gen AI/NLP models for production use.
@@ -191,14 +191,17 @@ def render_workflow_diagram():
 
     diagram.node("A", "🏥 Raw Hospital Data\n(Name, DOB, Address, Notes)")
     diagram.node("B", "🔒 Regex-Based (later model based as needed)\nPII Redaction including Notes")
-    diagram.node("C", "📤 Sent to Insurance\nUUID for PII data and \n<PERSON>, <DATE> in Notes")
-    diagram.node("D", "💸 Billing Info\n(ID like B1234, $10,000 Limit)")
+    diagram.node("C", "📤 Sent to coding company then Insurance\nUUID for PII data and \n<PERSON>, <DATE> in Notes")
+    diagram.node("D", "💸 Billing Info with coded data\n(Code like B1234, payment like $10,000 Limit)")
     diagram.node("E", "📥 Reconstructed Data\nOriginal PII data and Notes Restored")
+    diagram.node("F", "📥 Receive payment or denial data from insurance companies.\n Close feedback loop")
+    
 
     diagram.edge("A", "B", label="Submit to Redact PII")
     diagram.edge("B", "C", label="Masked Data")
-    diagram.edge("C", "D", label="Simulated Insurance Response")
-    diagram.edge("D", "E", label="Map PII Back")
+    diagram.edge("C", "D", label="Simulated Coded & Insurance Response")
+    diagram.edge("D", "E", label="Map PII Back", style="dotted") # Dotted line from D to E
+    diagram.edge("D", "F", label="Payment/Denial/Feedback", arrowhead="normal") # Arrow from D to F
 
     # Force D and E into a new row
     with diagram.subgraph() as s:
@@ -236,31 +239,32 @@ with st.expander("1️⃣ Enter or Modify Hospital Data"):
             parsed_data = json.loads(user_input)
             st.session_state["parsed_data"] = parsed_data
             st.session_state["masked_data"] = mask_pii(parsed_data)
-            st.success("✅ Hospital data submitted successfully. Now click on the next tab 2️⃣ Masked Data Sent to Insurance")
+            st.success("✅ Hospital data submitted successfully. Now click on the next tab 2️⃣ Masked Data Sent to Coding Company")
         except Exception as e:
             st.error(f"❌ Invalid JSON format: {e}")
 
 # Step 2: Masked data (if available)
 if "masked_data" in st.session_state:
-    with st.expander("2️⃣ Masked Data Sent to Insurance"):
+    with st.expander("2️⃣ Masked Data Sent to Coding Company"):
         st.json(st.session_state["masked_data"])
-        if st.button("➡️ Simulate Insurance Response"):
+        if st.button("➡️ Simulate Coding/Insurance Response"):
             st.session_state["insurance_response"] = simulate_insurance_response(st.session_state["masked_data"])
-            st.success("✅ Simulate the response from Insurance company successfully. Now click on the next tab 3️⃣ Insurance Billing Response")
+            st.success("✅ Simulated the response from Coding/Insurance company successfully. Now click on the next tab 3️⃣ Simulated Coded Company and Insurance Billing Response")
 
 # Step 3: Insurance response (if available)
 if "insurance_response" in st.session_state:
-    with st.expander("3️⃣ Insurance Billing Response"):
+    with st.expander("3️⃣ Simulated Coded Company and Insurance Billing Response"):
         st.json(st.session_state["insurance_response"])
-        if st.button("➡️ Send Back to Hospital"):
+        if st.button("➡️ Click to view Re-mapped data"):
             st.session_state["final_data"] = remap_to_pii(st.session_state["insurance_response"])
-            st.success("✅ Final re-stitched all the data successfully. Now click on the next tab 4️⃣ Final Remapped Hospital Data")
+            st.success("✅ Re-stitched all the data successfully. Now click on the next tab 4️⃣ View Remapped Data")
 
 # Step 4: Final remapping (if available)
 if "final_data" in st.session_state:
-    with st.expander("4️⃣ Final Remapped Hospital Data"):
+    with st.expander("4️⃣ View Remapped Data"):
         st.json(st.session_state["final_data"])
-        st.success("🎉 Data remapped successfully with PII restored! Thanks for following all the steps :) ")
+        st.success("🎉 Data remapped successfully with PII restored! ")
+        st.info("➡️ Next Steps: Working with Insurance Company for Further Approval Process. \n End of Demo; Thanks for following all the steps :)")
 
 ########
 # ---------------------------------------------
