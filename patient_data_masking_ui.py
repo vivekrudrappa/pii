@@ -220,7 +220,7 @@ st.set_page_config(
 st.title("🏥 Astra Demo for Patient Data Processing & PII Masking")
 st.subheader("Named-Entity Recognition (NER) via Regex Based similar to NLP model, can be enhanced with AI models on need basis")
 # Display a logo from a local file
-st.logo("Astra_logo.png", size="medium")
+st.logo("Astra_logo.png", size="large")
 
 st.graphviz_chart(render_workflow_diagram())
 
