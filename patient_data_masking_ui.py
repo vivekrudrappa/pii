@@ -186,13 +186,8 @@ def remap_to_pii(insurance_response):
 # ---------------------------------------------
 def render_workflow_diagram():
     diagram = graphviz.Digraph()
-    diagram.attr(rankdir="TB", bgcolor="#f9f9f9")
+    diagram.attr(rankdir="LR", bgcolor="#f9f9f9")
     diagram.attr("node", shape="box", style="filled", color="#4A90E2", fontcolor="white", fontname="Arial", fontsize="12")
-    # Increase overall size for the graph canvas
-    # 'ratio' can also be used to control aspect ratio, e.g., diagram.attr(ratio="fill")
-    # You might need to experiment with 'size' values (e.g., "10,7", "12,8")
-    diagram.attr(size="20,12", dpi="200", overlap="false", splines="true")
-    #diagram.attr("edge", fontname="Arial", fontsize="12") # Added fontsize for edge labels
 
     diagram.node("A", "🏥 Raw Hospital Data\n(Name, DOB, Address, Notes)")
     diagram.node("B", "🔒 Regex-Based (later model based as needed)\nPII Redaction including Notes")
@@ -202,11 +197,11 @@ def render_workflow_diagram():
     diagram.node("F", "📥 Receive payment or denial data from insurance companies.\n Close feedback loop")
     
 
-    diagram.edge("A", "B", label="Submit to Redact PII")
-    diagram.edge("B", "C", label="Masked Data")
-    diagram.edge("C", "D", label="Simulated Coded & Insurance Response")
-    diagram.edge("D", "E", label="Map PII Back", style="dotted", dir="both") # Dotted line from D to E
-    diagram.edge("D", "F", label="Payment/Denial/Feedback", arrowhead="normal") # Arrow from D to F
+    diagram.edge("A", "B", label="Submit to\n Redact\n PII")
+    diagram.edge("B", "C", label="Masked\n Data")
+    diagram.edge("C", "D", label="Simulated \nCoded &\n Insurance\n Response")
+    diagram.edge("D", "E", label="Map \nPII \nBack", style="dotted", dir="both") # Dotted line from D to E
+    diagram.edge("D", "F", label="Payment\nDenial\nFeedback", arrowhead="normal") # Arrow from D to F
 
     # Force D and F into a new row
     with diagram.subgraph() as s:
