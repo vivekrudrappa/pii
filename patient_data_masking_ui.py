@@ -52,12 +52,6 @@ from typing import Dict
 import re
 import graphviz
 
-st.set_page_config(
-    page_title="Astra PII Redaction Demo",
-    page_icon="🧬",
-    layout="centered",
-)
-
 
 if "PII_MAPPING_DB" not in st.session_state:
     st.session_state["PII_MAPPING_DB"] = {}
@@ -217,8 +211,16 @@ def render_workflow_diagram():
 # ---------------------------------------------
 # Streamlit UI
 # ---------------------------------------------
-st.set_page_config(page_title="Patient PII Masking Demo", layout="wide")
-st.title("🏥 Patient Data Processing & PII Masking (Regex Based, can be enhanced with AI models as need basis)")
+
+st.set_page_config(
+    page_title="Astra Patient PII Redaction Demo",
+    page_icon="🧬",
+    layout="centered",
+)
+st.title("🏥 Astra Demo for Patient Data Processing & PII Masking")
+st.subheader("Named-Entity Recognition (NER) via Regex Based similar to NLP model, can be enhanced with AI models on need basis")
+# Display a logo from a local file
+st.logo("Astra_logo.png", size="medium")
 
 st.graphviz_chart(render_workflow_diagram())
 
