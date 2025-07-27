@@ -1,3 +1,4 @@
+
 # patient_data_masking_ui.py
 """
 Astra Patient Data PII Masking & Remapping Prototype
@@ -51,6 +52,11 @@ from typing import Dict
 import re
 import graphviz
 
+st.set_page_config(
+    page_title="Astra PII Redaction Demo",
+    page_icon="🧬",
+    layout="centered",
+)
 
 
 if "PII_MAPPING_DB" not in st.session_state:
