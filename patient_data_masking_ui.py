@@ -200,14 +200,14 @@ def render_workflow_diagram():
     diagram.edge("A", "B", label="Submit to Redact PII")
     diagram.edge("B", "C", label="Masked Data")
     diagram.edge("C", "D", label="Simulated Coded & Insurance Response")
-    diagram.edge("D", "E", label="Map PII Back", style="dotted") # Dotted line from D to E
+    diagram.edge("D", "E", label="Map PII Back", style="dotted", dir="both") # Dotted line from D to E
     diagram.edge("D", "F", label="Payment/Denial/Feedback", arrowhead="normal") # Arrow from D to F
 
-    # Force D and E into a new row
+    # Force D and F into a new row
     with diagram.subgraph() as s:
         s.attr(rank="same")
         s.node("D")
-        s.node("E")
+        s.node("F")
     
     return diagram
 
