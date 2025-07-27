@@ -218,7 +218,7 @@ def render_workflow_diagram():
 st.set_page_config(
     page_title="Astra Patient PII Redaction Demo",
     page_icon="🧬",
-    layout="centered",
+    layout="wide",
 )
 st.title("🏥 Astra Demo for Patient Data Processing & PII Masking")
 st.subheader("Named-Entity Recognition (NER) via Regex Based similar to NLP model, can be enhanced with AI models on need basis")
