@@ -186,7 +186,7 @@ def remap_to_pii(insurance_response):
 # ---------------------------------------------
 def render_workflow_diagram():
     diagram = graphviz.Digraph()
-    diagram.attr(rankdir="LR", bgcolor="#f9f9f9")
+    diagram.attr(rankdir="TB", bgcolor="#f9f9f9")
     diagram.attr("node", shape="box", style="filled", color="#4A90E2", fontcolor="white", fontname="Arial", fontsize="16")
     # Increase overall size for the graph canvas
     # 'ratio' can also be used to control aspect ratio, e.g., diagram.attr(ratio="fill")
