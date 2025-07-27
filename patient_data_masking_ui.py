@@ -191,7 +191,7 @@ def render_workflow_diagram():
     # Increase overall size for the graph canvas
     # 'ratio' can also be used to control aspect ratio, e.g., diagram.attr(ratio="fill")
     # You might need to experiment with 'size' values (e.g., "10,7", "12,8")
-    diagram.attr(size="10,7", dpi="200") # Added size and dpi for larger output
+    diagram.attr(size="20,12", dpi="200", overlap="false", splines="true")
     diagram.attr("edge", fontname="Arial", fontsize="12") # Added fontsize for edge labels
 
     diagram.node("A", "🏥 Raw Hospital Data\n(Name, DOB, Address, Notes)")
