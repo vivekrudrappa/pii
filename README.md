@@ -39,3 +39,29 @@ High-Level Steps to Achieve the Solution:
 5. **PII Remapping:** Restore original PII using stored mappings and UUIDs, reconstructing the full patient record.
 6. **Return to Hospital:** Send the final, remapped data back to the hospital.
 This prototype demonstrates the workflow using regex-based masking, but can be enhanced with Gen AI/NLP models for production use.
+
+
+# 🧠 GenAI-Powered PII Detection & Redaction Demo
+
+This interactive Streamlit app simulates how hospitals can safely share PII data with insurance providers using regex-based redaction and remapping.
+
+## 🚀 Features
+- Interactive multi-step flow
+- Regex-based Named Entity Recognition (NER)
+- PII redaction and restoration
+- Graphviz visualization
+- Streamlit Cloud hosted (no setup needed!)
+
+👉 [Try it live on Streamlit] https://astrapiiprototype.streamlit.app/
+
+## 🛠️ Tech Stack
+- Python + Streamlit
+- Graphviz
+- Pandas
+
+---
+
+## 📁 How to Run Locally
+
+pip install -r requirements.txt
+streamlit run app.py
