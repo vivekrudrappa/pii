@@ -264,8 +264,9 @@ if "insurance_response" in st.session_state:
 if "final_data" in st.session_state:
     with st.expander("4️⃣ View Remapped Data"):
         st.json(st.session_state["final_data"])
-        st.success("🎉 Data remapped successfully with PII restored! ")
-        st.info("➡️ Next Steps: Working with Insurance Company for Further Approval Process. \n End of Demo; Thanks for following all the steps :)")
+        st.success("Data remapped successfully with PII restored! ")
+        st.info("➡️ Next Steps: Working with Insurance Company for Further Approval Process. ")
+        st.success("🎉 End of Demo; Thanks for following all the steps 🥳")
 
 ########
 # ---------------------------------------------
